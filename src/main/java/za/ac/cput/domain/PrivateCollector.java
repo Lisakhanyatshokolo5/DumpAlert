@@ -1,5 +1,4 @@
 package za.ac.cput.domain;
-import za.ac.cput.domain.Report;
 
 public class PrivateCollector {
 
@@ -7,7 +6,6 @@ public class PrivateCollector {
     private String companyName;
     private double monthlyPrice;
     private double commissionRate;
-    private Report report;
 
     private PrivateCollector() {}
 
