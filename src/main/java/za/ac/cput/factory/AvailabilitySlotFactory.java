@@ -4,8 +4,9 @@ import za.ac.cput.entity.enums.SlotStatus;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
-
+/*
+ * Author: Phumelela Sakie (240040546)
+ * */
 
 public class AvailabilitySlotFactory {
 
