@@ -5,7 +5,6 @@ package za.ac.cput.repository.impl;
         26 March 2026
         */
 import za.ac.cput.entity.UserAccount;
-import za.ac.cput.entity.UserProfile;
 import za.ac.cput.repository.UserAccountRepository;
 
 import java.util.ArrayList;

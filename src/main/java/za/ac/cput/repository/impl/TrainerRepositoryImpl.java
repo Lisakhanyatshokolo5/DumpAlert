@@ -1,8 +1,6 @@
 package za.ac.cput.repository.impl;
-
 import za.ac.cput.entity.Trainer;
 import za.ac.cput.repository.TrainerRepository;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

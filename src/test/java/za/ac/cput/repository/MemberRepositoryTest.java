@@ -1,5 +1,4 @@
 package za.ac.cput.repository;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.entity.ContactDetails;
@@ -9,13 +8,18 @@ import za.ac.cput.entity.UserProfile;
 import za.ac.cput.entity.enums.RoleType;
 import za.ac.cput.factory.MemberFactory;
 import za.ac.cput.repository.impl.MemberRepositoryImpl;
-
 import java.time.LocalDate;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * 26 March 2026
+ * Author: Lisakhanya Tshokolo
+ * (220239215)
+ */
+
 public class MemberRepositoryTest {
+
     private MemberRepositoryImpl repo;
     private Member member1;
     private Member member2;
@@ -26,7 +30,7 @@ public class MemberRepositoryTest {
         repo.delete("MEM01");
         repo.delete("MEM02");
 
-        member1 = MemberFactory.createMember("MEM01,",
+        member1 = MemberFactory.createMember("MEM01",
                 new UserAccount.Builder()
                         .accountId("ACC01")
                         .email("lisakhanya@gmail.com")
@@ -48,7 +52,7 @@ public class MemberRepositoryTest {
                         .setEmergencyContactNumber("0783726156")
                         .build());
 
-        member2 = MemberFactory.createMember("MEM02,",
+        member2 = MemberFactory.createMember("MEM02",
                 new UserAccount.Builder()
                         .accountId("ACC02")
                         .email("ath@gmail.com")
@@ -61,7 +65,7 @@ public class MemberRepositoryTest {
                         .firstName("Athi")
                         .lastName("Sintiya")
                         .gender("Male")
-                        .dateOfBirth(LocalDate.of(1998, 06, 21))
+                        .dateOfBirth(LocalDate.of(1998, 6, 21))
                         .build(),
                 new ContactDetails.Builder()
                         .setContactId("CN02")
@@ -69,9 +73,8 @@ public class MemberRepositoryTest {
                         .setEmergencyContactName("Dad")
                         .setEmergencyContactNumber("0769375021")
                         .build());
-
-
     }
+
 
     @Test
     void testGetRepository_ReturnsSameInstance() {
@@ -79,6 +82,7 @@ public class MemberRepositoryTest {
         MemberRepositoryImpl instance2 = MemberRepositoryImpl.getRepository();
         assertSame(instance1, instance2);
     }
+
 
     @Test
     void testCreate_NotNull() {
@@ -95,118 +99,118 @@ public class MemberRepositoryTest {
     @Test
     void testCreate_StoresMember() {
         repo.create(member1);
-        assertNotNull(repo.read("M001"));
+        assertNotNull(repo.read("MEM01"));
     }
 
     @Test
     void testCreate_CorrectEmail() {
         repo.create(member1);
-        assertEquals("lisakhanya@gmail.com", repo.read("M001").getAccount().getEmail());
+        assertEquals("lisakhanya@gmail.com", repo.read("MEM01").getAccount().getEmail());  // ← fixed
     }
 
     @Test
     void testCreate_CorrectRole() {
         repo.create(member1);
-        assertEquals(RoleType.MEMBER, repo.read("M001").getAccount().getRole());
+        assertEquals(RoleType.MEMBER, repo.read("MEM01").getAccount().getRole());  // ← fixed
     }
 
     @Test
     void testCreate_CorrectFirstName() {
         repo.create(member1);
-        assertEquals("Lisakhanya", repo.read("M001").getProfile().getFirstName());
+        assertEquals("Lisakhanya", repo.read("MEM01").getProfile().getFirstName());  // ← fixed
     }
 
     @Test
     void testCreate_CorrectCellphoneNumber() {
         repo.create(member1);
-        assertEquals("0815659910", repo.read("M001").getContact().getCellphoneNumber());
+        assertEquals("0815659910", repo.read("MEM01").getContact().getCellphoneNumber());  // ← fixed
     }
 
     @Test
     void testCreate_MultipleMembers() {
         repo.create(member1);
         repo.create(member2);
-        assertNotNull(repo.read("M001"));
-        assertNotNull(repo.read("M002"));
+        assertNotNull(repo.read("MEM01"));
+        assertNotNull(repo.read("MEM02"));
     }
-
 
     @Test
     void testRead_ExistingMember_NotNull() {
         repo.create(member1);
-        assertNotNull(repo.read("M001"));
+        assertNotNull(repo.read("MEM01"));
     }
 
     @Test
     void testRead_ExistingMember_CorrectMemberId() {
         repo.create(member1);
-        assertEquals("M001", repo.read("M001").getMemberId());
+        assertEquals("MEM01", repo.read("MEM01").getMemberId());
     }
-
     @Test
     void testRead_ExistingMember_CorrectEmail() {
         repo.create(member1);
-        assertEquals("lisakhanya@gmail.com", repo.read("M001").getAccount().getEmail());
+        assertEquals("lisakhanya@gmail.com", repo.read("MEM01").getAccount().getEmail());
     }
 
     @Test
     void testRead_ExistingMember_CorrectPassword() {
         repo.create(member1);
-        assertEquals("SecurePassword123!", repo.read("M001").getAccount().getPassword());
+        assertEquals("SecurePassword123", repo.read("MEM01").getAccount().getPassword());
     }
 
     @Test
     void testRead_ExistingMember_CorrectRole() {
         repo.create(member1);
-        assertEquals(RoleType.MEMBER, repo.read("M001").getAccount().getRole());
+        assertEquals(RoleType.MEMBER, repo.read("MEM01").getAccount().getRole());
     }
 
     @Test
     void testRead_ExistingMember_CorrectRegistrationDate() {
         repo.create(member1);
-        assertEquals(LocalDate.of(2025, 10, 22), repo.read("M001").getAccount().getRegistrationDate());
+        assertEquals(LocalDate.of(2025, 10, 22),
+                repo.read("MEM01").getAccount().getRegistrationDate());
     }
 
     @Test
     void testRead_ExistingMember_CorrectFirstName() {
         repo.create(member1);
-        assertEquals("Lisakhanya", repo.read("M001").getProfile().getFirstName());
+        assertEquals("Lisakhanya", repo.read("MEM01").getProfile().getFirstName());
     }
 
     @Test
     void testRead_ExistingMember_CorrectLastName() {
         repo.create(member1);
-        assertEquals("Tshokolo", repo.read("M001").getProfile().getLastName());
+        assertEquals("Tshokolo", repo.read("MEM01").getProfile().getLastName());
     }
 
     @Test
     void testRead_ExistingMember_CorrectGender() {
         repo.create(member1);
-        assertEquals("Female", repo.read("M001").getProfile().getGender());
+        assertEquals("Female", repo.read("MEM01").getProfile().getGender());
     }
 
     @Test
     void testRead_ExistingMember_CorrectDateOfBirth() {
         repo.create(member1);
-        assertEquals(LocalDate.of(2001, 11, 9), repo.read("M001").getProfile().getDateOfBirth());
+        assertEquals(LocalDate.of(2001, 11, 9),
+                repo.read("MEM01").getProfile().getDateOfBirth());
     }
 
     @Test
     void testRead_ExistingMember_CorrectCellphoneNumber() {
         repo.create(member1);
-        assertEquals("0815659910", repo.read("M001").getContact().getCellphoneNumber());
+        assertEquals("0815659910", repo.read("MEM01").getContact().getCellphoneNumber());
     }
 
     @Test
     void testRead_ExistingMember_CorrectEmergencyContactName() {
         repo.create(member1);
-        assertEquals("Mom", repo.read("M001").getContact().getEmergencyContactName());
+        assertEquals("Mom", repo.read("MEM01").getContact().getEmergencyContactName());
     }
 
     @Test
     void testRead_ExistingMember_CorrectEmergencyContactNumber() {
         repo.create(member1);
-        assertEquals("0783726156", repo.read("M001").getContact().getEmergencyContactNumber());
+        assertEquals("0783726156", repo.read("MEM01").getContact().getEmergencyContactNumber());
     }
 
     @Test
@@ -219,7 +223,7 @@ public class MemberRepositoryTest {
     void testUpdate_NotNull() {
         repo.create(member1);
         member1.setProfile(new UserProfile.Builder()
-                .profileId("P001")
+                .profileId("PR001")
                 .firstName("Updated")
                 .lastName("Name")
                 .gender("Female")
@@ -232,26 +236,26 @@ public class MemberRepositoryTest {
     void testUpdate_CorrectFirstName() {
         repo.create(member1);
         member1.setProfile(new UserProfile.Builder()
-                .profileId("P001")
+                .profileId("PR001")
                 .firstName("Updated")
                 .lastName("Name")
                 .gender("Female")
                 .dateOfBirth(LocalDate.of(2001, 11, 9))
                 .build());
         repo.update(member1);
-        assertEquals("Updated", repo.read("M001").getProfile().getFirstName());
+        assertEquals("Updated", repo.read("MEM01").getProfile().getFirstName());
     }
 
     @Test
     void testUpdate_CorrectCellphoneNumber() {
         repo.create(member1);
         member1.setContact(new ContactDetails.Builder()
-                .setCellphoneNumber("0815659910")
+                .setCellphoneNumber("0999999999")
                 .setEmergencyContactNumber("0783726156")
                 .setEmergencyContactName("Mom")
                 .build());
         repo.update(member1);
-        assertEquals("0815659910", repo.read("M001").getContact().getCellphoneNumber());
+        assertEquals("0999999999", repo.read("MEM01").getContact().getCellphoneNumber());
     }
 
     @Test
@@ -263,14 +267,14 @@ public class MemberRepositoryTest {
     @Test
     void testDelete_ExistingMember_ReturnsTrue() {
         repo.create(member1);
-        assertTrue(repo.delete("M001"));
+        assertTrue(repo.delete("MEM01"));
     }
 
     @Test
     void testDelete_ExistingMember_NoLongerExists() {
         repo.create(member1);
-        repo.delete("M001");
-        assertNull(repo.read("M001"));
+        repo.delete("MEM01");
+        assertNull(repo.read("MEM01"));
     }
 
     @Test
@@ -302,6 +306,6 @@ public class MemberRepositoryTest {
     void testGetAll_ContainsCreatedMember() {
         repo.create(member1);
         assertTrue(repo.getAll().stream()
-                .anyMatch(m -> m.getMemberId().equals("M001")));
+                .anyMatch(m -> m.getMemberId().equals("MEM01")));
     }
 }

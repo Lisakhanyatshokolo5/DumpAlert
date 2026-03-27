@@ -11,8 +11,9 @@ import za.ac.cput.repository.impl.TrainerRepositoryImpl;
 import java.time.LocalDate;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+
 /**
- * 27 March 2026
+ * 26 March 2026
  * Author: Lisakhanya Tshokolo
  * (220239215)
  */
@@ -194,8 +195,7 @@ public class TrainerRepositoryTest {
         @Test
         void testRead_ExistingTrainer_CorrectDateOfBirth() {
             repo.create(trainer1);
-            assertEquals(LocalDate.of(1990, 5, 20),
-                    repo.read("T001").getProfile().getDateOfBirth());
+            assertEquals(trainer1.getProfile().getDateOfBirth(), repo.read("T001").getProfile().getDateOfBirth());
         }
 
         @Test

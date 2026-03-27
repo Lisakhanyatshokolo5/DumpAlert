@@ -18,6 +18,7 @@ import java.time.LocalDate;
  */
 
 public class TrainerFactoryTest {
+    private static final String TRAINER_ID= "T001";
         private UserAccount account;
         private UserProfile profile;
         private ContactDetails contactDetails;
@@ -48,7 +49,7 @@ public class TrainerFactoryTest {
                     .setEmergencyContactName("Nomawethu Ndlela")
                     .build();
 
-            trainer = TrainerFactory.createTrainer("T001", account, profile, contactDetails);
+            trainer = TrainerFactory.createTrainer(TRAINER_ID, account, profile, contactDetails);
         }
 
 

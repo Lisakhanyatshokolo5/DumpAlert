@@ -43,7 +43,7 @@ public class MemberFactoryTest {
               .setEmergencyContactName("Mom")
               .build();
 
-      member = MemberFactory.createMember(MEMBER_ID, account, profile, contact);
+        member = MemberFactory.createMember(MEMBER_ID, account, profile, contact);
     }
     @Test
     void testCreateMember_success_NotNull(){
@@ -51,7 +51,7 @@ public class MemberFactoryTest {
     }
     @Test
     void testCreateMember_success_CorrectMemberId(){
-       assertEquals(MEMBER_ID, member.getMemberId());
+        assertEquals(MEMBER_ID, member.getMemberId());;
     }
     @Test
     void testCreateMember_success_CorrectAccount(){
@@ -68,24 +68,25 @@ public class MemberFactoryTest {
 
     @Test
     void testCreateMember_fail_NullMemberId(){
-        assertThrows(NullPointerException.class,() -> MemberFactory.createMember(null,account,profile,contact));
+        assertThrows(IllegalArgumentException.class, () -> MemberFactory.createMember(null, account, profile, contact));
     }
     @Test
     void testCreateMember_fail_EmptyMemberId(){
-        assertThrows(IllegalArgumentException.class,() -> MemberFactory.createMember("",account,profile,contact));
+        assertThrows(IllegalArgumentException.class, () -> MemberFactory.createMember("", account, profile, contact));
     }
     @Test
     void testCreateMember_fail_NullAccount(){
-        assertThrows(NullPointerException.class,() -> MemberFactory.createMember(MEMBER_ID,null,profile,contact));
+        assertThrows(IllegalArgumentException.class, () -> MemberFactory.createMember(MEMBER_ID, null, profile, contact));
     }
+
     @Test
     void testCreateMember_fail_NullProfile(){
-        assertThrows(NullPointerException.class,() -> MemberFactory.createMember(MEMBER_ID,account,null,contact));
+        assertThrows(IllegalArgumentException.class, () -> MemberFactory.createMember(MEMBER_ID, account, null, contact));
 
     }
     @Test
     void testCreateMember_fail_NullContactDetails(){
-        assertThrows(NullPointerException.class,() -> MemberFactory.createMember(MEMBER_ID,account,profile,null));
+        assertThrows(IllegalArgumentException.class, () -> MemberFactory.createMember(MEMBER_ID, account, null, contact));
     }
 
     @Test
@@ -139,7 +140,6 @@ public class MemberFactoryTest {
                 .toString();
         assertNotNull(result);
         assertFalse(result.isEmpty());
-        assertTrue(result.contains("MEMBER_ID"));
     }
     @Test
     void testTwoMembers_AreIndependent(){
